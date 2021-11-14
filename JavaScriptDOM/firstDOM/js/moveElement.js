@@ -5,12 +5,15 @@ function moveElement(elementId,final_x,final_y,interval) {
 
   let elem = document.getElementById(elementId);
   // 之前没有效果的原因：style只能拿到内置样式属性
+  if (elem.movement){
+    clearTimeout(elem.movement)
+  }
 
   let xPosition = parseInt(elem.style.left);
   let yPosition = parseInt(elem.style.top);
 
   if (xPosition == final_x && yPosition == final_y){
-    clearTimeout(movement)
+    clearTimeout(elem.movement)
     return true
   }
   if (xPosition < final_x){
@@ -26,9 +29,9 @@ function moveElement(elementId,final_x,final_y,interval) {
     yPosition--;
   }
   elem.style.left = xPosition + "px";
-  elem.style.top = xPosition + "px";
+  elem.style.top = yPosition + "px";
   let repeat = "moveElement('"+elementId+"',"+final_x+","+final_y+","+interval+")";
 
 
-  movement = setTimeout(repeat,20);
+  elem.movement = setTimeout(repeat,interval);
 }
