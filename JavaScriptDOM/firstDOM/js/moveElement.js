@@ -8,6 +8,13 @@ function moveElement(elementId,final_x,final_y,interval) {
   if (elem.movement){
     clearTimeout(elem.movement)
   }
+  // 安全检查：style.left && style.top 是否存在
+  if (!elem.style.left){
+    elem.style.left = "0px";
+  }
+  if (!elem.style.top){
+    elem.style.top = "0px";
+  }
 
   let xPosition = parseInt(elem.style.left);
   let yPosition = parseInt(elem.style.top);
@@ -20,16 +27,13 @@ function moveElement(elementId,final_x,final_y,interval) {
   if (xPosition < final_x){
     dist = Math.ceil((final_x-xPosition)/10);
     xPosition += dist;
-  }
-  if (xPosition > final_x){
+  }else if (xPosition > final_x){
     dist = Math.ceil((xPosition-final_x)/10);
     xPosition -= dist;
-  }
-  if (yPosition < final_y){
+  }else if (yPosition < final_y){
     dist = Math.ceil((final_y-yPosition)/10);
     yPosition += dist;
-  }
-  if (yPosition > final_y){
+  }else if (yPosition > final_y){
     dist = Math.ceil((yPosition-final_y)/10);
     yPosition -= dist;
   }
