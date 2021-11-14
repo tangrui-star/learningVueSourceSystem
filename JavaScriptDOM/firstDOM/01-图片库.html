@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Gallery</title>
+  <link rel="stylesheet" href="styles/layout.css"/>
+</head>
+<body>
+  <h1>Snapshots</h1>
+  <ul id="imageGallery">
+    <li>
+      <a href="images/A.jpg" onclick="showPic(this);return false;" title="A is good">A</a>
+    </li>
+    <li>
+      <a href="images/B.jpg" onclick="showPic(this);return false;" title="B xxx">B</a>
+    </li>
+    <li>
+      <a href="images/C.jpg" onclick="showPic(this);return false;" title="C">C</a>
+    </li>
+    <li>
+      <a href="images/D.jpg" onclick="showPic(this);return false;" title="D">D</a>
+    </li>
+
+  </ul>
+
+  <p id="description">Choose an image.</p>
+
+  <img id="placeholder" src="images/A.jpg" alt="my image gallery"/>
+  <a href="javascript:popUp('http://www.baidu.com/')">test</a>
+
+  <script>
+    // 实现的目标效果：点击链接后，将下方图片的 src 重置为点击的 href地址
+    function showPic(whichPic) {
+      // 1.获取 点击的节点对象
+      // 2.获取 节点对象的 href属性值
+      let source = whichPic.getAttribute('href');
+      let placeholder = document.getElementById('placeholder');
+      // 获得 文本描述元素节点
+      let description = document.getElementById('description');
+      // 3.将获取的 img标签的 src属性值置为 当前对象节点的 href属性
+      placeholder.setAttribute('src',source);
+
+      // 获取 点击目标 描述元素节点的文本信息 whichPic
+      let text = whichPic.getAttribute("title")
+
+      // 进行赋值，修改 description 节点的文本信息
+      description.firstChild.nodeValue = text;
+      console.log("文本："+text)
+    }
+
+
+    function countBodyChildren() {
+      let body_element = document.getElementsByTagName("body")[0];
+      console.log(body_element.childNodes);
+      console.log(body_element.childNodes.length);// 9
+    }
+
+    // 操作 window浏览器窗口的方法 open（url,"名字","高宽？"）
+    function popUp(winUrl) {
+      window.open(winUrl,"popUp","width=320,height=480");
+    }
+
+    // 在页面加载时，调用 countBodyChildren 函数
+    window.onload = countBodyChildren;
+
+  </script>
+</body>
+</html>

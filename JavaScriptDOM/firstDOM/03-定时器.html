@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+
+  </style>
+</head>
+<body>
+    <div id="message" style="  position: absolute;
+      top: 50px;
+      left: 100px;">message</div>
+  <script>
+
+    function moveMessage() {
+      if (!document.getElementById) return false;
+      if (!document.getElementById("message")) return false;
+
+      let elem = document.getElementById("message");
+      // 之前没有效果的原因：style只能拿到内置样式属性
+      // console.log(elem.style.left)
+      console.log(elem.style.top)
+      let xPosition = parseInt(elem.style.left);
+      let yPosition = parseInt(elem.style.top);
+
+      if (xPosition == 200 && yPosition == 100){
+        clearTimeout(movement)
+        return true
+      }
+      if (xPosition < 200){
+        xPosition++;
+      }
+      if (xPosition > 200){
+        xPosition--;
+      }
+      if (yPosition < 100){
+        yPosition++;
+      }
+      if (yPosition > 100){
+        yPosition--;
+      }
+      elem.style.left = xPosition + "px";
+      elem.style.top = xPosition + "px";
+
+       movement = setTimeout("moveMessage()",20);
+
+
+    }
+
+
+    addLoadEvent(moveMessage)
+
+    function addLoadEvent(func) {
+      let oldOnload = window.onload;
+      if (typeof window.onload != 'function'){
+        window.onload = func;
+      }else{
+        window.onload = function () {
+          oldOnload();
+          func();
+        }
+      }
+    }
+  </script>
+</body>
+</html>
