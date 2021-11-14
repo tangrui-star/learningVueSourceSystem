@@ -16,17 +16,22 @@ function moveElement(elementId,final_x,final_y,interval) {
     clearTimeout(elem.movement)
     return true
   }
+  let dist = 0;
   if (xPosition < final_x){
-    xPosition++;
+    dist = Math.ceil((final_x-xPosition)/10);
+    xPosition += dist;
   }
   if (xPosition > final_x){
-    xPosition--;
+    dist = Math.ceil((xPosition-final_x)/10);
+    xPosition -= dist;
   }
   if (yPosition < final_y){
-    yPosition++;
+    dist = Math.ceil((final_y-yPosition)/10);
+    yPosition += dist;
   }
   if (yPosition > final_y){
-    yPosition--;
+    dist = Math.ceil((yPosition-final_y)/10);
+    yPosition -= dist;
   }
   elem.style.left = xPosition + "px";
   elem.style.top = yPosition + "px";
