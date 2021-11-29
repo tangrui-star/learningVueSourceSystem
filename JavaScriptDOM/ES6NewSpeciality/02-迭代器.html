@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  const items = ['one','two','three'];
+  console.log(items);
+  const ite = items[Symbol.iterator]();// 迭代器；
+  console.log(ite.next());// {value: "one",done: false} done为false表示遍历并未完成，true表示遍历完成
+  console.log(ite.next());
+  console.log(ite.next());
+  console.log(ite.next());
+
+  function* func(){
+    console.log('one');
+    yield 2;
+    console.log('two');
+    yield 3;
+    console.log('end');
+  }
+  // 返回一个遍历器对象，可以调用 next（）
+  let fn = func();
+  console.log(fn)         // func {<suspended>}
+  console.log(fn.next()); // {value: 2, done: false}
+  console.log(fn.next()); // {value: 3, done: false}
+  console.log(fn.next()); // {value: undefined, done: true}
+
+  // 总结：generator 函数是分段执行的，yield语句是暂停执行，而 next()是恢复执行
+
+  // generator 传递参数情况
+  function* add() {
+    console.log('start');
+    // x 真的不是 yield ‘2’ 的返回值，它是 next（）调用，恢复当前yield（）执行时传入的实参！！！
+    // 这种写法就很奇葩
+    let x = yield '2';
+    console.log('one:'+x);
+    let y = yield '3';
+    console.log('two:'+y);
+    return x+y;
+  }
+  const fn1 = add();
+  console.log(fn1.next());   // start  {value: "2", done: false}
+  console.log(fn1.next(20)); // one:20 {value: "3", done: false}
+  console.log(fn1.next(30)); // two:30 {value: 50, done: true}
+
+  console.log("A");
+  async function async1() {
+    await async2();
+    console.log("B")
+  }
+  async function async2() {
+    console.log("C")
+  }
+  async1();
+
+  setTimeout(function () {
+    console.log("D")
+  },0)
+  new Promise((resolve) => {
+    console.log("E")
+    resolve();
+  }).then(function () {
+    console.log("F")
+  }).then(function () {
+    console.log("G")
+  })
+  console.log("H")
+</script>
+</body>
+</html>
